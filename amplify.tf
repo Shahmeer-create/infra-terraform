@@ -33,23 +33,11 @@ resource "aws_amplify_app" "frontend" {
   EOT
 
   environment_variables = {
-    VITE_API_URL = ""
+    VITE_API_URL = "https://backend.cravizio.com"
   }
 
   enable_auto_branch_creation = false
   enable_branch_auto_deletion = true
-
-  custom_rule {
-    source = "/api/<*>"
-    target = "http://${aws_lb.main.dns_name}/api/<*>"
-    status = "200"
-  }
-
-  custom_rule {
-    source = "/health"
-    target = "http://${aws_lb.main.dns_name}/health"
-    status = "200"
-  }
 
   custom_rule {
     source = "</^[^.]+$|\\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|woff2|ttf|map|json)$)([^.]+$)/>"
@@ -71,7 +59,7 @@ resource "aws_amplify_branch" "main" {
   enable_pull_request_preview = var.environment != "prod"
 
   environment_variables = {
-    VITE_API_URL = ""
+    VITE_API_URL = "https://backend.cravizio.com"
   }
 
   tags = {
