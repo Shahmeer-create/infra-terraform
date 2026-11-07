@@ -5,7 +5,7 @@
 resource "aws_amplify_app" "frontend" {
   name         = "${local.name_prefix}-frontend"
   repository   = "https://github.com/${var.github_app_repo}"
-  platform     = "WEB_COMPUTE"
+  platform     = "WEB"
   iam_service_role_arn = aws_iam_role.amplify.arn
 
   access_token = var.github_access_token
