@@ -163,7 +163,10 @@ data "aws_iam_policy_document" "github_oidc_assume" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_repo}:*"]
+      values   = [
+        "repo:${var.github_repo}:*",
+        "repo:Shahmeer-create@*infra-terraform@*:*",
+      ]
     }
   }
 }
@@ -338,7 +341,10 @@ data "aws_iam_policy_document" "github_oidc_app_assume" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:${var.github_app_repo}:*"]
+      values   = [
+        "repo:${var.github_app_repo}:*",
+        "repo:Shahmeer-create@*my-app@*:*",
+      ]
     }
   }
 }
