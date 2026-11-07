@@ -43,3 +43,13 @@ output "secrets_manager_secret_arn" {
   value       = aws_secretsmanager_secret.rds.arn
   sensitive   = true
 }
+
+output "github_oidc_role_arn" {
+  description = "ARN of the OIDC role for infra repo — set as AWS_OIDC_ROLE_ARN in Shahmeer-create/infra-terraform"
+  value       = aws_iam_role.github_oidc.arn
+}
+
+output "github_oidc_app_role_arn" {
+  description = "ARN of the OIDC role for app repo — set as AWS_OIDC_ROLE_ARN in Shahmeer-create/my-app"
+  value       = aws_iam_role.github_oidc_app.arn
+}

@@ -19,7 +19,6 @@ jobs:
   terraform:
     name: Terraform ${{github.event_name == 'push' && 'Apply' || 'Plan'}}
     runs-on: ubuntu-latest
-    environment: ${{github.event_name == 'push' && 'production' || 'plan'}}
 
     steps:
       - name: Checkout
@@ -28,7 +27,7 @@ jobs:
       - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          role-to-assume: ${{secrets.AWS_OIDC_ROLE_ARN}}
           aws-region: ${{env.AWS_REGION}}
 
       - name: Setup Terraform

@@ -168,3 +168,10 @@ variable "log_retention_days" {
   type        = number
   default     = 30
 }
+
+variable "github_access_token" {
+  description = "GitHub personal access token for Amplify"
+  type        = string
+  sensitive   = true
+  default     = ""
+}
