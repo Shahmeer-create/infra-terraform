@@ -274,6 +274,13 @@ data "aws_iam_policy_document" "github_oidc_permissions" {
   }
 
   statement {
+    sid       = "CloudFormation"
+    effect    = "Allow"
+    actions   = ["cloudformation:*"]
+    resources = ["*"]
+  }
+
+  statement {
     sid       = "WAF"
     effect    = "Allow"
     actions   = ["wafv2:*"]
