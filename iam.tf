@@ -408,6 +408,7 @@ data "aws_iam_policy_document" "github_oidc_app_permissions" {
     actions = [
       "ecs:RegisterTaskDefinition",
       "ecs:UpdateService",
+      "ecs:RunTask",
     ]
     resources = ["*"]
   }
