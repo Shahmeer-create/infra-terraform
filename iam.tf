@@ -146,7 +146,7 @@ resource "aws_iam_openid_connect_provider" "github" {
 data "aws_iam_policy_document" "github_oidc_assume" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
 
     principals {
       type        = "Federated"
@@ -321,7 +321,7 @@ resource "aws_iam_role_policy" "github_oidc_permissions" {
 data "aws_iam_policy_document" "github_oidc_app_assume" {
   statement {
     effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
+    actions = ["sts:AssumeRoleWithWebIdentity", "sts:TagSession"]
 
     principals {
       type        = "Federated"
