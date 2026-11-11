@@ -84,7 +84,26 @@ resource "aws_codepipeline" "app" {
     }
   }
 
-  # Stage 3 — Deploy: rolling update on ECS
+  # Stage 3 — Scan: ESLint syntax and security scan
+  stage {
+    name = "Scan"
+
+    action {
+      name             = "Scan"
+      category         = "Build"
+      owner            = "AWS"
+      provider         = "CodeBuild"
+      version          = "1"
+      input_artifacts  = ["source_output"]
+      output_artifacts = ["scan_output"]
+
+      configuration = {
+        ProjectName = aws_codebuild_project.scan.name
+      }
+    }
+  }
+
+  # Stage 4 — Deploy: rolling update on ECS
   stage {
     name = "Deploy"
 

@@ -81,3 +81,53 @@ resource "aws_cloudwatch_log_group" "codebuild" {
     Name = "/codebuild/${local.name_prefix}-build"
   }
 }
+
+# ---------------------------------------------------------------------------
+# CodeBuild — Scan project (ESLint syntax + security scan)
+# Runs after Build stage, before Deploy
+# ---------------------------------------------------------------------------
+
+resource "aws_codebuild_project" "scan" {
+  name          = "${local.name_prefix}-scan"
+  description   = "Syntax and security scan for ${local.name_prefix} backend"
+  build_timeout = 10
+  service_role  = aws_iam_role.codebuild.arn
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL"
+    image                       = "aws/codebuild/standard:7.0"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD"
+    privileged_mode             = false
+  }
+
+  source {
+    type      = "CODEPIPELINE"
+    buildspec = "buildspec-scan.yml"
+  }
+
+  logs_config {
+    cloudwatch_logs {
+      group_name  = "/codebuild/${local.name_prefix}-scan"
+      stream_name = "scan"
+    }
+  }
+
+  tags = {
+    Name = "${local.name_prefix}-scan"
+  }
+}
+
+# CloudWatch log group for scan logs
+resource "aws_cloudwatch_log_group" "codebuild_scan" {
+  name              = "/codebuild/${local.name_prefix}-scan"
+  retention_in_days = var.log_retention_days
+
+  tags = {
+    Name = "/codebuild/${local.name_prefix}-scan"
+  }
+}
