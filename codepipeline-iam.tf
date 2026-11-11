@@ -40,7 +40,10 @@ resource "aws_iam_role_policy" "codepipeline" {
       {
         Effect   = "Allow"
         Action   = ["codebuild:StartBuild", "codebuild:BatchGetBuilds"]
-        Resource = aws_codebuild_project.app.arn
+        Resource = [
+          aws_codebuild_project.app.arn,
+          aws_codebuild_project.scan.arn
+        ]
       },
       {
         Effect   = "Allow"
