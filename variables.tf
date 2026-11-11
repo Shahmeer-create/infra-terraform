@@ -175,3 +175,13 @@ variable "github_access_token" {
   sensitive   = true
   default     = ""
 }
+
+# ---------------------------------------------------------------------------
+# CodePipeline
+# ---------------------------------------------------------------------------
+
+variable "github_connection_arn" {
+  description = "AWS CodeStar connection ARN for GitHub (create manually in console)"
+  type        = string
+  default     = ""
+}

@@ -29,3 +29,6 @@ enable_alarms            = false
 enable_https             = true
 certificate_arn          = "arn:aws:acm:us-east-1:516027198635:certificate/671340ba-601f-4d5d-949f-4c9951708b08"
 enable_waf               = false
+
+# CodePipeline
+github_connection_arn    = "arn:aws:codeconnections:us-east-1:516027198635:connection/34fb8724-f464-4c9b-bf6d-beb8ba7dad51"
