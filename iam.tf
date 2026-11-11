@@ -281,6 +281,13 @@ data "aws_iam_policy_document" "github_oidc_permissions" {
   }
 
   statement {
+    sid       = "CodePipeline"
+    effect    = "Allow"
+    actions   = ["codepipeline:*", "codebuild:*", "codedeploy:*", "codestar-connections:*", "codeconnections:*"]
+    resources = ["*"]
+  }
+
+  statement {
     sid       = "WAF"
     effect    = "Allow"
     actions   = ["wafv2:*"]
